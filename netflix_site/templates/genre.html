@@ -34,8 +34,9 @@
                     <ul><a href="/genre/fantasy/">Fantasy</a></ul>
                 </div>
             </div>
-
-            <span><a href="/my-list">My List</a></span>
+            {% if request.user.is_authenticated %}
+            <span><a href="/my-list">{{user.username}}'s List</a></span>
+            {% endif %}
         </nav>
 
 
@@ -45,10 +46,17 @@
                 <input type="search" name="search_term" placeholder="Search" class="bg-gray-700 p-2 rounded">
                 <button class="bg-red-600 text-white p-2 rounded hover:bg-red-500">Search</button>
             </form>
+            {% if request.user.is_authenticated %}
             <div class="relative">
-                <a href="#" class="block p-2">Welcome, {{user.username}}</a>
-                <a href="/logout" class="block p-2">Logout</a>
+                <span><a href="/logout" class="block p-2">Log Out</a></span>
             </div>
+            {% else %}
+            <div class="relative">
+                <span><a href="/signup" >Sign Up</a></span>
+                &nbsp; &nbsp;
+                <span><a href="/login" >Log In</a></span>
+            </div>
+            {% endif %}
         </div>
     </header>
     
